@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<configdata>
+    <production>
+        <webhost>status.narno.net</webhost>
+        <gandi>
+            <api>https://rpc.gandi.net/xmlrpc/2.0</api>
+            <apikey>API_KEY</apikey>
+            <account showdetails="0" />
+            <vm showdetails="1" />
+        </gandi>
+        <cache>
+            <dir>../cache/</dir>
+            <page>
+                <enabled>true</enabled>
+                <debug>false</debug>
+                <lifetime>86400</lifetime>
+                <prefix>page</prefix>
+            </page>
+            <graph>
+                <enabled>true</enabled>
+                <debug>false</debug>
+                <lifetime>1600</lifetime>
+                <prefix>graph</prefix>
+            </graph>
+        </cache>
+    </production>
+    <dev extends="production">
+        <webhost>status.narno.local</webhost>
+        <gandi>
+            <account showdetails="1" />
+        </gandi>
+    </dev>
+</configdata>

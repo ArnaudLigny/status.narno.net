@@ -22,7 +22,6 @@ require 'Zend/Loader/Autoloader.php';
 $autoloader = Zend_Loader_Autoloader::getInstance();
 
 // config
-//$config = new Zend_Config_Xml('config.xml', 'production');
 $cache_config = Zend_Cache::factory(
 	'Output',
 	'File',
@@ -72,20 +71,13 @@ $backendOptions = array(
     'cache_file_umask' => 0777,
 );
 
-// DEBUG
-//Zend_Debug::dump($frontendOptions);
-
 try {
     if (!is_dir($config->cache->dir)) {
         mkdir($config->cache->dir, 0777);
     }
     $cache = Zend_Cache::factory('Page', 'File', $frontendOptions, $backendOptions);
-    //$cache->clean(Zend_Cache::CLEANING_MODE_OLD);
     $cache->start();
     $logger->log('start cache', Zend_Log::DEBUG);
-    // DEBUG
-    //Zend_Debug::dump($cache);
-    //$cache->clean();
 }
 catch (Zend_Cache_Exception $e) {
     echo 'Exception: ' . $e->getCode() . "\n" . $e->__toString();
@@ -107,11 +99,6 @@ catch (Zend_XmlRpc_Client_HttpException $e) {
     echo 'Exception: ' . $e->getCode() . "\n" . $e->getMessage();
     exit();
 }
-
-// DEBUG
-//Zend_Debug::dump($account);
-//Zend_Debug::dump($account['resources']['available']);
-//Zend_Debug::dump($vm_list);
 
 // account
 if ($config->gandi->account->showdetails) {
@@ -141,7 +128,6 @@ if ($config->gandi->account->showdetails) {
 <ol class="vm-list">
 <?php
 foreach ($vm_list as $key => $vm) {
-    //Zend_Debug::dump($vm); // DEBUG
     $vm_info = $client->call('vm.info', array($config->gandi->apikey, (int)$vm['id']));
     $hostname     = $vm_info['hostname'];
     $state        = $vm_info['state'];

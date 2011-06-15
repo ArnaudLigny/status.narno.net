@@ -44,7 +44,6 @@ if ($response->isSuccessful() !== false && $headers['Content-type'] == 'image/pn
 }
 else {
     $img = imagecreatefrompng('./graph_unavailable.png');
-    //$cacheID = 'graph_unavailable';
     $cacheID = md5($url);
     if (!($cache->start($cacheID))) {
        imagepng($img);
